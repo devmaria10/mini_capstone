@@ -37,5 +37,4 @@ class ProductsController < ApplicationController
     product.destroy
     render json: { message: "Successfully deleted Product ##{product.id}." }
   end  
-
 end
