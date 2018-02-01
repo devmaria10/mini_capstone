@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user
 
   def index
     @orders = Order.all
@@ -20,7 +21,8 @@ class OrdersController < ApplicationController
                       ) 
   end 
 
+  @order.calculate_totals
   @order.save
-    render 'show.json.jbuilder'
+  render 'show.json.jbuilder'
   end 
 end
