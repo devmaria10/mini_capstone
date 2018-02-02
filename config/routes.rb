@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
   get '/orders' => 'orders#index'
   post '/orders' => 'orders#create'
+
+  get '/categories' => 'categories#index'
+
 end
