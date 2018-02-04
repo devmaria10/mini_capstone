@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
     category_name = params[:category]
     if category_name
       @products = Category.find_by(name: category_name).products 
-
+    end 
     render 'index.json.jbuilder'
   end
 
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
       @product.name = params[:name] || @product.name
       @product.description = params[:description] || @product.description
       @product.price = params[:price] || @product.price
-      @product.supplier_id = params[:supplier_id || @product.supplier_id
+      @product.supplier_id = params[:supplier_id] || @product.supplier_id
     
       @product.save
         render 'show.json.jbuilder'
@@ -66,4 +66,4 @@ class ProductsController < ApplicationController
       render json: {message: "Successfully destroyed product ##{product.id}"}
     end 
   end
-end
+end 

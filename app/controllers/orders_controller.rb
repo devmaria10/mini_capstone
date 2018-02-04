@@ -7,22 +7,28 @@ class OrdersController < ApplicationController
   end 
 
   def create
-    subtotal = Product.find(params[:product_id]).price * params[:quantity].to_i
-    tax = subtotal * 0.9
+    @carted_products = current_user.carted_products.where(status: "carted")
+    
+
+    subtotal = 0
+    carted_products.each do |carted_product|
+      subtotal += carted_product.product.price * carted_product.quantity
+    end 
+
+    tax = subtotal * 0.09
+
     total = tax + subtotal
 
     @order = Order.new(
-                        user_id: current_user.id,
-                        product_id: params[:product_id],
-                        quantity: params[:quantity],
-                        subtotal: subtotal,
-                        tax: tax,
-                        total: total
+                      user_id: current_user.id,
+                      subtotal: subtotal,
+                      tax: tax,
+                      total: total
                       ) 
   end 
 
-  @order.calculate_totals
   @order.save
+  carted_products.each { |carted_product| carted_product.update(status: "purchased")}
   render 'show.json.jbuilder'
   end 
 end
