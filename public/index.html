@@ -132,6 +132,66 @@
   </div>
 </template>
 
+<template id="products-new-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>New Product</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" v-model="price">
+      </div>
+      <div class="form-group">
+        <label>Image URL</label>
+        <input type="text" class="form-control" v-model="photo">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" v-model="description">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<template id="products-edit-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Update Product</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" v-model="price">
+      </div>
+      <div class="form-group">
+        <label>Image URL</label>
+        <input type="text" class="form-control" v-model="photo">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" v-model="description">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit changes</button>
+    </div>
+
+  </div>
+</template>
+
 <!-- <template id="recipe-card">
   <div class="col-md-4">
     <div class="card mb-5">

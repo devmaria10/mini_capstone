@@ -98,13 +98,94 @@ var LogoutPage = {
   }
 };
 
+var ProductsNewPage = {
+  template: "#products-new-page",
+  data: function() {
+    return {
+      name: "",
+      price: "",
+      image_url: "",
+      description: "",
+      errors: []
+    };
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        price: this.price,
+        image_url: this.imageUrl,
+        description: this.description
+      };
+      axios
+        .post("/products", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
+    }
+  }
+};
+
+var ProductsEditPage = {
+  template: "#products-edit-page",
+  data: function() {
+    return {
+      name: "",
+      price: "",
+      image_url: "",
+      description: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios
+      .get("/products/1")
+      .then(function(response) {
+        var product = response.data;
+        this.name = product.name;
+        this.price = product.price;
+        this.imageUrl = product.image_url;
+        this.description = product.description;
+      }.bind(this));
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        price: this.price,
+        image_url: this.imageUrl,
+        description: this.description
+      };
+      axios
+        .patch("/products/1", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
+    }
+  }
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: SamplePage },
     { path: "/random", component: RandomPage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
-    { path: "logout", component: LogoutPage }
+    { path: "logout", component: LogoutPage },
+    { path: "/products/new", component: ProductsNewPage },
+    { path: "/products/1/edit", component: ProductsEditPage}
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
