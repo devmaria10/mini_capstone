@@ -2,100 +2,147 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pinata Store</title>
+  <title>Pinatas App</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="products.css">
+  <link rel="stylesheet" href="recipes.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
   <script src="index.js" defer></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Pinata Store</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <div id="vue-app">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-</head>
-<body>
-  <div class ="container">
-    <h1>All Pinatas</h1>
+    <a class="navbar-brand" href="/#/">Pinatas App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="row">
-      
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/#/signup">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/#/signup">Sign Up</a>
+            <a class="dropdown-item" href="/#/login">Login</a>
+            <a class="dropdown-item" href="/#/logout" class>Logout</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </div>
+  </nav>
 
-<!--     <h2><a href="/products/1">Grinch Head Pinata</a></h2>
-    <h3>price</h3>
-    <img src="https://images-na.ssl-images-amazon.com/images/I/41pcKPk7LUL._AC_UL320_SR212,320_.jpg">
-    <p>Description: one medium sized Grinch head pinata</p>
+    <router-view></router-view>
 
-    <h4><a href="/products/2">Horton Pinata</a></h4>
-    <h5>price</h5>
-    <img src="https://i.pinimg.com/236x/b5/8a/97/b58a9726885e8953b73c4a65d445a7a4.jpg">
-    <p>Description: large blue Horton pinata</p>
+  </div>
 
-    <h6><a href="/products/3">Thing 1 and Thing 2 Pinata</a></h6>
-    <h7>price</h3>
-    <img src="https://img.etsystatic.com/il/693a22/607513294/il_570xN.607513294_8thg.jpg">
-    <p>Description: Thing 1 and Thing 2 pinata</p>
-
-    <h8><a href="/products/4">The Lorax Pinata</a></h8>
-    <h9>price</h9>
-    <img src="https://i.pinimg.com/originals/dc/58/f8/dc58f82524643c3814c3194145df50bd.jpg">
-    <p>Description: medium-size The Lorax pinata</p>
-
-    <h10><a href="/products/5">Minion Pinata</a></h10>
-    <h11>price</h11>
-    <img src="https://i.pinimg.com/736x/96/c5/c2/96c5c279b8a0273d831dc80cde6fb9c1--pinata-diy-minion-pinata.jpg">
-    <p>Description: little yellow Minion pinata</p>
- -->  </div>
-</div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
 
-  <template id="product-card">
-     <div class="col-md-4">
-       <div class="card mb-5">
-         <img class="card-img-top" src="" alt="">
-         <div class="card-body">
-           <h4 class="card-title">Grinch Head Pinata</h4>
-           <p class="card-text">Price: <span class="price">1</span></p>
-           <p class="card-text">Source: <span class="source">2</span></p>
-           <p class="card-text">Description: <span class="description"></span>"description"</p>
-           <a class="btn btn-primary float-right" href="/products/1">More Info</a>
-         </div>
-       </div>
-     </div>
+<template id="signup-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Signup</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <div class="form-group">
+        <label>Password confirmation:</label>
+        <input type="password" class="form-control" v-model="passwordConfirmation">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
 </template>
+
+<template id="login-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Login</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<template id="sample-page">
+  <div class="vue-component">
+    <div class="container"></div>
+
+    <h1>{{ message }}</h1>
+    <a class="btn btn-primary" href="/#/random">Go to Random</a>
+
+  </div>
+</template>
+
+<template id="random-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>{{ message }}</h1>
+      <a class="btn btn-success" href="/#/">Go to Sample Page</a>
+    </div>
+  </div>
+</template>
+
+<!-- <template id="recipe-card">
+  <div class="col-md-4">
+    <div class="card mb-5">
+      <img class="card-img-top" src="" alt="">
+      <div class="card-body">
+        <h4 class="card-title"></h4>
+        <p class="card-text">Prep Time: <span class="prep-time"></span></p>
+        <p class="card-text">Ingredients: <span class="ingredients"></span></p>
+        <p class="card-text">Directions: <span class="directions"></span></p>
+        <a class="btn btn-primary float-right" href="/recipes/1">More Info</a>
+      </div>
+    </div>
+  </div>
+</template> -->
