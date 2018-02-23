@@ -1,28 +1,127 @@
 /* global Vue, VueRouter, axios */
 
-var SamplePage = {
-  template: "#sample-page",
+// Products Components
+
+var ProductsIndexPage = {
+  template: "#products-index-page",
   data: function() {
     return {
-      message: "This is my Sample Page"
+      products: []
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/products")
+      .then(function(response) {
+        this.products = response.data;
+      }.bind(this));
+  },
   methods: {},
   computed: {}
 };
 
-var RandomPage = {
-  template: "#random-page",
+var ProductsNewPage = {
+  template: "#products-new-page",
   data: function() {
     return {
-      message: "This is my Random Page"
+      name: "",
+      price: "",
+      image_url: "",
+      description: "",
+      errors: []
     };
   },
-  created: function() {},
-  methods: {},
-  computed: {}
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        price: this.price,
+        image_url: this.imageUrl,
+        description: this.description
+      };
+      axios
+        .post("/products", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
+    }
+  }
 };
+
+var ProductsShowPage = {
+  template: "#products-show-page",
+  data: function() {
+    return {
+      product: {
+        id: "",
+        name: "",
+        image_url: "",
+        description: "",
+        price: ""
+      }
+    }
+  },
+  created: function() {
+    axios.get("/products/" + this.$route.params.id )
+      .then(function(response) {
+        this.product = response.data;
+      }.bind(this));
+  }
+};
+var ProductsEditPage = {
+  template: "#products-edit-page",
+  data: function() {
+    return {
+      name: "",
+      price: "",
+      image_url: "",
+      description: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios
+      .get("/products/" + this.$route.params.id)
+      .then(function(response) {
+        var product = response.data;
+        this.name = product.name;
+        this.price = product.price;
+        this.imageUrl = product.image_url;
+        this.description = product.description;
+      }.bind(this));
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        name: this.name,
+        price: this.price,
+        image_url: this.imageUrl,
+        description: this.description
+      };
+      axios
+        .patch("/products/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/products/" + response.data.id);
+        }.bind(this)
+        )
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
+    }
+  }
+};
+
+//axios.patch().then().catch();
+
+// Authorization Components 
 
 var SignupPage = {
   template: "#signup-page",
@@ -98,94 +197,16 @@ var LogoutPage = {
   }
 };
 
-var ProductsNewPage = {
-  template: "#products-new-page",
-  data: function() {
-    return {
-      name: "",
-      price: "",
-      image_url: "",
-      description: "",
-      errors: []
-    };
-  },
-  methods: {
-    submit: function() {
-      var params = {
-        name: this.name,
-        price: this.price,
-        image_url: this.imageUrl,
-        description: this.description
-      };
-      axios
-        .post("/products", params)
-        .then(function(response) {
-          router.push("/");
-        })
-        .catch(
-          function(error) {
-            this.errors = error.response.data.errors;
-            router.push("/login");
-          }.bind(this)
-        );
-    }
-  }
-};
-
-var ProductsEditPage = {
-  template: "#products-edit-page",
-  data: function() {
-    return {
-      name: "",
-      price: "",
-      image_url: "",
-      description: "",
-      errors: []
-    };
-  },
-  created: function() {
-    axios
-      .get("/products/1")
-      .then(function(response) {
-        var product = response.data;
-        this.name = product.name;
-        this.price = product.price;
-        this.imageUrl = product.image_url;
-        this.description = product.description;
-      }.bind(this));
-  },
-  methods: {
-    submit: function() {
-      var params = {
-        name: this.name,
-        price: this.price,
-        image_url: this.imageUrl,
-        description: this.description
-      };
-      axios
-        .patch("/products/1", params)
-        .then(function(response) {
-          router.push("/");
-        })
-        .catch(
-          function(error) {
-            this.errors = error.response.data.errors;
-            router.push("/login");
-          }.bind(this)
-        );
-    }
-  }
-};
-
 var router = new VueRouter({
   routes: [
-    { path: "/", component: SamplePage },
-    { path: "/random", component: RandomPage },
+    { path: "/", component: ProductsIndexPage },
+    { path: "/products", component: ProductsIndexPage },
+    { path: "/products/new", component: ProductsNewPage },
+    { path: "/products/:id", component: ProductsShowPage },
+    { path: "/products/:id/edit", component: ProductsEditPage},
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
-    { path: "logout", component: LogoutPage },
-    { path: "/products/new", component: ProductsNewPage },
-    { path: "/products/1/edit", component: ProductsEditPage}
+    { path: "logout", component: LogoutPage }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

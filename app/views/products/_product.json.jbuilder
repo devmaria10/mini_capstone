@@ -7,7 +7,7 @@ json.price product.price
 json.tax product.tax
 json.total product.total
 
-json.butterfly do
+json.formatted do
                 json.price number_to_currency(product.price)
                 json.tax number_to_currency(product.tax)
                 json.total number_to_currency(product.total)
